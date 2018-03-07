@@ -1,5 +1,6 @@
 package com.maxnobr.colorpicker2
 
+import android.content.Intent.getIntent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater

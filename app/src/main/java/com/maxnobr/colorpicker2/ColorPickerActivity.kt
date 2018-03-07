@@ -23,6 +23,8 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_color_picker.*
 import kotlinx.android.synthetic.main.fragment_load.*
 import kotlinx.android.synthetic.main.fragment_save.*
+import android.content.Intent
+import android.net.Uri
 
 
 class ColorPickerActivity : AppCompatActivity(), SaveFragment.SaveListener {
@@ -44,6 +46,8 @@ class ColorPickerActivity : AppCompatActivity(), SaveFragment.SaveListener {
         setContentView(R.layout.activity_color_picker)
         setSupportActionBar(toolbar)
 
+        intent
+
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                     .add(R.id.frame_layout, ColorPickerActivityFragment(), "colorPickFrag")
@@ -54,7 +58,7 @@ class ColorPickerActivity : AppCompatActivity(), SaveFragment.SaveListener {
             db = Room.databaseBuilder(applicationContext,
                     AppDatabase::class.java, "stuff").build()
 
-            Log.i("SashaLog","on create loading colors ! ")
+            //Log.i("SashaLog","on create loading colors ! ")
 
             db.colorDao().getAllColors()
                     .subscribeOn(Schedulers.io())
@@ -234,5 +238,11 @@ class ColorPickerActivity : AppCompatActivity(), SaveFragment.SaveListener {
         var view = currentFocus
         if (view == null) view = View(applicationContext)
         imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    override fun finish() {
+        val result = Intent("com.example.RESULT_ACTION", Uri.parse("content://result_uri"))
+        setResult(Activity.RESULT_OK, result)
+        finish()
     }
 }
