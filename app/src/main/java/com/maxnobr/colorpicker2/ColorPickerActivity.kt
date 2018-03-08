@@ -130,6 +130,7 @@ class ColorPickerActivity : AppCompatActivity(), SaveFragment.SaveListener {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_color_picker, menu)
+
         if(intent.action == "msud.cs3013.ACTION_COLOR") menu.getItem(2).isVisible = true
 
         colorFrag = supportFragmentManager.findFragmentByTag("colorPickFrag") as ColorPickerActivityFragment
