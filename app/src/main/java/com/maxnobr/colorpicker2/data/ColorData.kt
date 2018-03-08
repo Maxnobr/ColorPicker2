@@ -9,6 +9,4 @@ import android.arch.persistence.room.PrimaryKey
  */
 
 @Entity(primaryKeys = ["color","name"])
-data class ColorData(
-        @ColumnInfo var color: Int,
-        @ColumnInfo var name: String)
+data class ColorData(@ColumnInfo var color: Int, @ColumnInfo var name: String)

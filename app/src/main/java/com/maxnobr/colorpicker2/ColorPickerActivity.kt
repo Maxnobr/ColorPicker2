@@ -46,8 +46,6 @@ class ColorPickerActivity : AppCompatActivity(), SaveFragment.SaveListener {
         setContentView(R.layout.activity_color_picker)
         setSupportActionBar(toolbar)
 
-        intent
-
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                     .add(R.id.frame_layout, ColorPickerActivityFragment(), "colorPickFrag")
@@ -58,7 +56,7 @@ class ColorPickerActivity : AppCompatActivity(), SaveFragment.SaveListener {
             db = Room.databaseBuilder(applicationContext,
                     AppDatabase::class.java, "stuff").build()
 
-            //Log.i("SashaLog","on create loading colors ! ")
+            Log.i("SashaLog","on create loading colors ! ")
 
             db.colorDao().getAllColors()
                     .subscribeOn(Schedulers.io())
@@ -132,6 +130,7 @@ class ColorPickerActivity : AppCompatActivity(), SaveFragment.SaveListener {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_color_picker, menu)
+        if(intent.action == "msud.cs3013.ACTION_COLOR") menu.getItem(2).isVisible = true
 
         colorFrag = supportFragmentManager.findFragmentByTag("colorPickFrag") as ColorPickerActivityFragment
         saveFrag = supportFragmentManager.findFragmentByTag("saveFrag") as SaveFragment
@@ -229,6 +228,10 @@ class ColorPickerActivity : AppCompatActivity(), SaveFragment.SaveListener {
                 //displayAllColors()
                 true
             }
+            R.id.action_return -> {
+                returnColor()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -240,8 +243,9 @@ class ColorPickerActivity : AppCompatActivity(), SaveFragment.SaveListener {
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    override fun finish() {
-        val result = Intent("com.example.RESULT_ACTION", Uri.parse("content://result_uri"))
+    private fun returnColor()
+    {
+        val result = Intent("com.example.RESULT_ACTION", Uri.parse(colorFrag.getColors().toString()))
         setResult(Activity.RESULT_OK, result)
         finish()
     }

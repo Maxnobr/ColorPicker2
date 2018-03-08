@@ -13,4 +13,11 @@
         android:icon="@android:drawable/ic_menu_more"
         android:title="@string/action_load"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_return"
+        android:icon="@android:drawable/ic_menu_revert"
+        android:title="@string/action_return"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
 </menu>
