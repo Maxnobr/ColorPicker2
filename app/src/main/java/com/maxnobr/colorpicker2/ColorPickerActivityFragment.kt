@@ -1,6 +1,5 @@
 package com.maxnobr.colorpicker2
 
-import android.content.Intent.getIntent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.SeekBar
-import com.maxnobr.colorpicker2.R
 import kotlinx.android.synthetic.main.fragment_color_picker.*
 import java.util.*
 

@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -56,7 +55,7 @@ class ColorPickerActivity : AppCompatActivity(), SaveFragment.SaveListener {
             db = Room.databaseBuilder(applicationContext,
                     AppDatabase::class.java, "stuff").build()
 
-            Log.i("SashaLog","on create loading colors ! ")
+            //Log.i("SashaLog","on create loading colors ! ")
 
             db.colorDao().getAllColors()
                     .subscribeOn(Schedulers.io())
@@ -68,7 +67,7 @@ class ColorPickerActivity : AppCompatActivity(), SaveFragment.SaveListener {
     override fun onSaveClick(name: String) {
         closeSave(false)
         val newColor = ColorData(colorFrag.getColors(), name)
-        Log.i("SashaLog","Saving color '${newColor.color}' by the name '${newColor.name}'")
+        //Log.i("SashaLog","Saving color '${newColor.color}' by the name '${newColor.name}'")
         allColors.add(newColor)
         mAdapter.notifyDataSetChanged()
 
@@ -93,8 +92,8 @@ class ColorPickerActivity : AppCompatActivity(), SaveFragment.SaveListener {
         if(selectedData != null) {
             selectedView?.findViewById<ImageView>(R.id.check_mark)?.visibility = View.GONE
             val colorToDelete = selectedData as ColorData
-            Log.i("SashaLog","Deleting color '${colorToDelete.color}' by the name '${colorToDelete.name}'")
-            Log.i("SashaLog","all colors have this color : '${allColors.contains(colorToDelete)}'")
+            //Log.i("SashaLog","Deleting color '${colorToDelete.color}' by the name '${colorToDelete.name}'")
+            //Log.i("SashaLog","all colors have this color : '${allColors.contains(colorToDelete)}'")
 
             allColors.remove(colorToDelete)
             mAdapter.notifyDataSetChanged()
@@ -119,11 +118,11 @@ class ColorPickerActivity : AppCompatActivity(), SaveFragment.SaveListener {
 
     private fun displayAllColors() {
         if(allColors.isEmpty()) {
-            Log.i("sashaLog","no colors have been loaded !")
+            //Log.i("sashaLog","no colors have been loaded !")
         }
         else for(color in allColors)
         {
-            Log.i("sashaLog","display: name is: '${color.name}' and color is: ${color.color}")
+            //Log.i("sashaLog","display: name is: '${color.name}' and color is: ${color.color}")
         }
     }
 
@@ -244,8 +243,7 @@ class ColorPickerActivity : AppCompatActivity(), SaveFragment.SaveListener {
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    private fun returnColor()
-    {
+    private fun returnColor() {
         val result = Intent("com.example.RESULT_ACTION", Uri.parse(colorFrag.getColors().toString()))
         setResult(Activity.RESULT_OK, result)
         finish()
